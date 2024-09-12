@@ -1,0 +1,12 @@
+Source: ros-humble-tf2-tools
+Section: misc
+Priority: optional
+Maintainer: Chris Lalancette <clalancette@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: http://www.ros.org/wiki/tf2_tools
+Standards-Version: 3.9.2
+
+Package: ros-humble-tf2-tools
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, graphviz, python3-yaml, ros-humble-rclpy, ros-humble-tf2-msgs, ros-humble-tf2-py, ros-humble-tf2-ros-py, ros-humble-ros-workspace
+Description: tf2_tools
