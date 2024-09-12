@@ -1,3 +1,43 @@
+## geometry2 (humble) - 0.25.8-1
+
+The packages in the `geometry2` repository were released into the `humble` distro by running `/home/z572/gits/revyos-ros/venv/bin/bloom-release -r humble geometry2 --override-release-repository-push-url git@github.com:revyos-ros/geometry2-release.git` on `Thu, 12 Sep 2024 04:12:11 -0000`
+
+These packages were released:
+- `examples_tf2_py`
+- `geometry2`
+- `tf2`
+- `tf2_bullet`
+- `tf2_eigen`
+- `tf2_eigen_kdl`
+- `tf2_geometry_msgs`
+- `tf2_kdl`
+- `tf2_msgs`
+- `tf2_py`
+- `tf2_ros`
+- `tf2_ros_py`
+- `tf2_sensor_msgs`
+- `tf2_tools`
+
+These packages were explicitly ignored:
+- `test_tf2`
+
+Version of package(s) in repository `geometry2`:
+
+- upstream repository: https://github.com/ros2/geometry2.git
+- release repository: https://github.com/revyos-ros/geometry2-release.git
+- rosdistro version: `0.25.8-1`
+- old version: `0.25.7-1`
+- new version: `0.25.8-1`
+
+Versions of tools used:
+
+- bloom version: `0.12.0`
+- catkin_pkg version: `1.0.0`
+- rosdep version: `0.22.2`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## geometry2 (humble) - 0.25.7-1
 
 The packages in the `geometry2` repository were released into the `humble` distro by running `/usr/bin/bloom-release --rosdistro humble --track humble geometry2` on `Wed, 29 May 2024 15:56:57 -0000`
