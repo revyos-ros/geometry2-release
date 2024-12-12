@@ -1,0 +1,12 @@
+Source: ros-humble-geometry2
+Section: misc
+Priority: optional
+Maintainer: Chris Lalancette <clalancette@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-ros-workspace
+Homepage: http://www.ros.org/wiki/geometry2
+Standards-Version: 3.9.2
+
+Package: ros-humble-geometry2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-tf2, ros-humble-tf2-bullet, ros-humble-tf2-eigen, ros-humble-tf2-eigen-kdl, ros-humble-tf2-geometry-msgs, ros-humble-tf2-kdl, ros-humble-tf2-msgs, ros-humble-tf2-py, ros-humble-tf2-ros, ros-humble-tf2-sensor-msgs, ros-humble-tf2-tools, ros-humble-ros-workspace
+Description: A metapackage to bring in the default packages second generation Transform Library in ros, tf2.
