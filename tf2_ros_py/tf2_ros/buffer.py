@@ -43,6 +43,7 @@ from geometry_msgs.msg import TransformStamped
 # TODO(vinnamkim): It seems rosgraph is not ready
 # import rosgraph.masterapi
 from time import sleep
+from rclpy.clock import JumpThreshold, TimeJump
 from rclpy.node import Node
 from rclpy.time import Time
 from rclpy.duration import Duration
@@ -86,6 +87,15 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
 
         if node is not None:
             self.srv = node.create_service(FrameGraph, 'tf2_frames', self.__get_frames)
+            self.clock = node.get_clock()
+        else:
+            self.clock = rclpy.clock.Clock()
+
+        # create a jump callback so as to clear the buffer if use_sim_true is true and there is a jump in time
+        threshold = JumpThreshold(min_forward=None,
+                                  min_backward=Duration(seconds=-1),
+                                  on_clock_change=True)
+        self.jump_handle = self.clock.create_jump_callback(threshold, post_callback=self.time_jump_callback)
 
     def __get_frames(
         self,
@@ -93,6 +103,10 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         res: FrameGraphSrvResponse
     ) -> FrameGraphSrvResponse:
         return FrameGraph.Response(frame_yaml=self.all_frames_as_yaml())
+
+    def time_jump_callback(self, time_jump: TimeJump):
+        rclpy.logging.get_logger("tf2_buffer").warning("Detected jump back in time. Clearing tf buffer.")
+        self.clear()
 
     def set_transform(self, transform: TransformStamped, authority: str) -> None:
         super().set_transform(transform, authority)
@@ -173,7 +187,8 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         :return: The transform between the frames.
         """
         self.can_transform_full(target_frame, target_time, source_frame, source_time, fixed_frame, timeout)
-        return self.lookup_transform_full_core(target_frame, target_time, source_frame, source_time, fixed_frame)
+        return self.lookup_transform_full_core(
+          target_frame, target_time, source_frame, source_time, fixed_frame)
 
     async def lookup_transform_full_async(
         self,
@@ -194,7 +209,8 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         :return: The transform between the frames.
         """
         await self.wait_for_transform_full_async(target_frame, target_time, source_frame, source_time, fixed_frame)
-        return self.lookup_transform_full_core(target_frame, target_time, source_frame, source_time, fixed_frame)
+        return self.lookup_transform_full_core(
+            target_frame, target_time, source_frame, source_time, fixed_frame)
 
     def can_transform(
         self,
@@ -212,7 +228,7 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         :param time: The time at which to get the transform (0 will get the latest).
         :param timeout: Time to wait for the target frame to become available.
         :param return_debug_type: If true, return a tuple representing debug information.
-        :return: True if the transform is possible, false otherwise.
+        :return: The information of the transform being waited on.
         """
         clock = rclpy.clock.Clock()
         if timeout != Duration():
@@ -253,7 +269,7 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         :param fixed_frame: Name of the frame to consider constant in time.
         :param timeout: Time to wait for the target frame to become available.
         :param return_debug_type: If true, return a tuple representing debug information.
-        :return: True if the transform is possible, false otherwise.
+        :return: The information of the transform being waited on.
         """
         clock = rclpy.clock.Clock()
         if timeout != Duration():
@@ -288,13 +304,13 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         fut = rclpy.task.Future()
         if self.can_transform_core(target_frame, source_frame, time)[0]:
             # Short cut, the transform is available
-            fut.set_result(True)
+            fut.set_result(self.lookup_transform(target_frame, source_frame, time))
             return fut
 
         def _on_new_data():
             try:
                 if self.can_transform_core(target_frame, source_frame, time)[0]:
-                    fut.set_result(True)
+                    fut.set_result(self.lookup_transform(target_frame, source_frame, time))
             except BaseException as e:
                 fut.set_exception(e)
 
@@ -324,13 +340,13 @@ class Buffer(tf2.BufferCore, tf2_ros.BufferInterface):
         fut = rclpy.task.Future()
         if self.can_transform_full_core(target_frame, target_time, source_frame, source_time, fixed_frame)[0]:
             # Short cut, the transform is available
-            fut.set_result(True)
+            fut.set_result(self.lookup_transform_full_core(target_frame, target_time, source_frame, source_time, fixed_frame))
             return fut
 
         def _on_new_data():
             try:
                 if self.can_transform_full_core(target_frame, target_time, source_frame, source_time, fixed_frame)[0]:
-                    fut.set_result(True)
+                    fut.set_result(self.lookup_transform_full_core(target_frame, target_time, source_frame, source_time, fixed_frame))
             except BaseException as e:
                 fut.set_exception(e)
 

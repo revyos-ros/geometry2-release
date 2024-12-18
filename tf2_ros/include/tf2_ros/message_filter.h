@@ -167,7 +167,8 @@ public:
     const rclcpp::Node::SharedPtr & node,
     std::chrono::duration<TimeRepT, TimeT> buffer_timeout =
     std::chrono::duration<TimeRepT, TimeT>::max())
-  : MessageFilter(buffer, target_frame, queue_size, node->get_node_logging_interface(),
+  : MessageFilter(
+      buffer, target_frame, queue_size, node->get_node_logging_interface(),
       node->get_node_clock_interface(), buffer_timeout)
   {
     static_assert(
@@ -221,7 +222,8 @@ public:
     const rclcpp::Node::SharedPtr & node,
     std::chrono::duration<TimeRepT, TimeT> buffer_timeout =
     std::chrono::duration<TimeRepT, TimeT>::max())
-  : MessageFilter(f, buffer, target_frame, queue_size, node->get_node_logging_interface(),
+  : MessageFilter(
+      f, buffer, target_frame, queue_size, node->get_node_logging_interface(),
       node->get_node_clock_interface(), buffer_timeout)
   {
   }
@@ -456,7 +458,7 @@ public:
    */
   void add(const MConstPtr & message)
   {
-    builtin_interfaces::msg::Time t = node_clock_->get_clock()->now();
+    auto t = node_clock_->get_clock()->now();
     add(MEvent(message, t));
   }
 
