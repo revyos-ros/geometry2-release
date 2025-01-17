@@ -2,64 +2,111 @@
 Changelog for package tf2_geometry_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.25.11 (2025-01-14)
---------------------
+0.36.8 (2025-01-15)
+-------------------
 
-0.25.10 (2024-12-19)
---------------------
-* Humble "Backport" of `#720 <https://github.com/ros2/geometry2/issues/720>`_ (`#722 <https://github.com/ros2/geometry2/issues/722>`_)
+0.36.7 (2024-12-27)
+-------------------
+* Jazzy "Backport" of `#720 <https://github.com/ros2/geometry2/issues/720>`_ (`#723 <https://github.com/ros2/geometry2/issues/723>`_)
 * Contributors: Lucas Wendland
 
-0.25.9 (2024-11-20)
+0.36.6 (2024-12-18)
 -------------------
-* Fix tf2_geometry_msgs_INCLUDE_DIRS. (`#729 <https://github.com/ros2/geometry2/issues/729>`_) (`#730 <https://github.com/ros2/geometry2/issues/730>`_)
+
+0.36.5 (2024-11-20)
+-------------------
+* Fix tf2_geometry_msgs_INCLUDE_DIRS. (`#729 <https://github.com/ros2/geometry2/issues/729>`_) (`#731 <https://github.com/ros2/geometry2/issues/731>`_)
   (cherry picked from commit abea0e92e3eabfaa1079752d9ac6da352bc590d2)
   Co-authored-by: rkeating-planted <159858498+rkeating-planted@users.noreply.github.com>
 * Contributors: mergify[bot]
 
-0.25.8 (2024-08-29)
+0.36.4 (2024-05-29)
 -------------------
-* Enable Twist interpolator (backport `#646 <https://github.com/ros2/geometry2/issues/646>`_) (`#684 <https://github.com/ros2/geometry2/issues/684>`_)
-  * Enable Twist interpolator (`#646 <https://github.com/ros2/geometry2/issues/646>`_)
+
+0.36.3 (2024-05-13)
+-------------------
+
+0.36.2 (2024-04-10)
+-------------------
+* Enable Twist interpolator (`#646 <https://github.com/ros2/geometry2/issues/646>`_)
   Co-authored-by: Tully Foote <tullyfoote@intrinsic.ai>
-  (cherry picked from commit 62322b8fa74c90d144dfe32294f6670bf6cfe786)
-  # Conflicts:
-  #	tf2/include/tf2/buffer_core.h
-  #	tf2_ros/test/test_buffer.cpp
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
+* Contributors: Alejandro Hernández Cordero
+
+0.36.1 (2024-03-28)
+-------------------
+
+0.36.0 (2024-02-07)
+-------------------
+* Removed obsolete headers (`#645 <https://github.com/ros2/geometry2/issues/645>`_)
+* Contributors: Alejandro Hernández Cordero
+
+0.35.1 (2024-01-24)
+-------------------
+
+0.35.0 (2023-12-26)
+-------------------
+
+0.34.0 (2023-11-06)
+-------------------
+
+0.33.2 (2023-10-04)
+-------------------
+
+0.33.1 (2023-09-07)
+-------------------
+
+0.33.0 (2023-08-21)
+-------------------
+* Add doTransform support for Point32, Polygon and PolygonStamped (backport `#616 <https://github.com/ros2/geometry2/issues/616>`_) (`#619 <https://github.com/ros2/geometry2/issues/619>`_)
 * Contributors: mergify[bot]
 
-0.25.7 (2024-05-29)
+0.32.2 (2023-07-11)
 -------------------
 
-0.25.6 (2024-02-16)
+0.32.1 (2023-05-11)
 -------------------
-* When finding Python3, use python3 executable as a hint (`#650 <https://github.com/ros2/geometry2/issues/650>`_)
+
+0.32.0 (2023-04-27)
+-------------------
+
+0.31.2 (2023-04-13)
+-------------------
+
+0.31.1 (2023-04-12)
+-------------------
+
+0.31.0 (2023-04-11)
+-------------------
+* Add do_transform_polygon_stamped (`#582 <https://github.com/ros2/geometry2/issues/582>`_)
+* Contributors: Tony Najjar
+
+0.30.0 (2023-02-14)
+-------------------
+* Update the demos to C++17. (`#578 <https://github.com/ros2/geometry2/issues/578>`_)
+* Contributors: Chris Lalancette
+
+0.29.0 (2022-11-21)
+-------------------
+* Update maintainers (`#560 <https://github.com/ros2/geometry2/issues/560>`_)
+* Add torque due to force offset (`#538 <https://github.com/ros2/geometry2/issues/538>`_)
+* Contributors: Audrow Nash, Paul Gesel
+
+0.28.0 (2022-11-02)
+-------------------
+
+0.27.0 (2022-09-13)
+-------------------
+
+0.26.2 (2022-08-15)
+-------------------
+
+0.26.1 (2022-06-24)
+-------------------
+* Use orocos_kdl_vendor and orocos-kdl target (`#534 <https://github.com/ros2/geometry2/issues/534>`_)
 * Contributors: Scott K Logan
 
-0.25.5 (2023-11-13)
+0.26.0 (2022-04-29)
 -------------------
-* add torque due to force offset (`#538 <https://github.com/ros2/geometry2/issues/538>`_) (`#633 <https://github.com/ros2/geometry2/issues/633>`_)
-* Contributors: mergify[bot]
-
-0.25.4 (2023-09-19)
--------------------
-* Fixed Windows warnings (`#623 <https://github.com/ros2/geometry2/issues/623>`_)
-* Add doTransform support for Point32, Polygon and PolygonStamped (`#616 <https://github.com/ros2/geometry2/issues/616>`_)
-* Contributors: Alejandro Hernández Cordero, Guillaume Doisy
-
-0.25.3 (2023-07-17)
--------------------
-* Add do_transform_polygon_stamped (`#582 <https://github.com/ros2/geometry2/issues/582>`_) (`#590 <https://github.com/ros2/geometry2/issues/590>`_)
-* Contributors: mergify[bot]
-
-0.25.2 (2023-01-10)
--------------------
-
-0.25.1 (2022-08-05)
--------------------
-* Use orocos_kdl_vendor and orocos-kdl target (`#548 <https://github.com/ros2/geometry2/issues/548>`_)
-* Contributors: Scott K Logan
 
 0.25.0 (2022-04-05)
 -------------------

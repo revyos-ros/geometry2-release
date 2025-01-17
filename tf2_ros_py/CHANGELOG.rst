@@ -2,39 +2,109 @@
 Changelog for package tf2_ros_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.25.11 (2025-01-14)
---------------------
-
-0.25.10 (2024-12-19)
---------------------
-
-0.25.9 (2024-11-20)
+0.36.8 (2025-01-15)
 -------------------
 
-0.25.8 (2024-08-29)
+0.36.7 (2024-12-27)
 -------------------
 
-0.25.7 (2024-05-29)
+0.36.6 (2024-12-18)
 -------------------
 
-0.25.6 (2024-02-16)
+0.36.5 (2024-11-20)
 -------------------
-
-0.25.5 (2023-11-13)
--------------------
-
-0.25.4 (2023-09-19)
--------------------
-* Remove 'efficient copy' prints (`#625 <https://github.com/ros2/geometry2/issues/625>`_) (`#626 <https://github.com/ros2/geometry2/issues/626>`_)
+* Fix the time_jump_callback signature. (`#711 <https://github.com/ros2/geometry2/issues/711>`_) (`#712 <https://github.com/ros2/geometry2/issues/712>`_)
+  Because it accesses object data, the first argument
+  must be 'self'.
+  (cherry picked from commit efc784597ccbd8d246794e72b20358deab4ab114)
+  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
 * Contributors: mergify[bot]
 
-0.25.3 (2023-07-17)
+0.36.4 (2024-05-29)
 -------------------
 
-0.25.2 (2023-01-10)
+0.36.3 (2024-05-13)
 -------------------
 
-0.25.1 (2022-08-05)
+0.36.2 (2024-04-10)
+-------------------
+* Transform Data Callback Python (`#664 <https://github.com/ros2/geometry2/issues/664>`_)
+* Contributors: Lucas Wendland
+
+0.36.1 (2024-03-28)
+-------------------
+
+0.36.0 (2024-02-07)
+-------------------
+
+0.35.1 (2024-01-24)
+-------------------
+
+0.35.0 (2023-12-26)
+-------------------
+
+0.34.0 (2023-11-06)
+-------------------
+* Make sure to cache transforms in tf2_ros_py. (`#634 <https://github.com/ros2/geometry2/issues/634>`_)
+* Contributors: Chris Lalancette
+
+0.33.2 (2023-10-04)
+-------------------
+
+0.33.1 (2023-09-07)
+-------------------
+* Remove 'efficient copy' prints (`#625 <https://github.com/ros2/geometry2/issues/625>`_)
+* Contributors: Matthijs van der Burgh
+
+0.33.0 (2023-08-21)
+-------------------
+
+0.32.2 (2023-07-11)
+-------------------
+* Add time jump callback (`#608 <https://github.com/ros2/geometry2/issues/608>`_)
+* Contributors: Erich L Foster
+
+0.32.1 (2023-05-11)
+-------------------
+
+0.32.0 (2023-04-27)
+-------------------
+
+0.31.2 (2023-04-13)
+-------------------
+
+0.31.1 (2023-04-12)
+-------------------
+* Update sys.path with wokring directory (`#594 <https://github.com/ros2/geometry2/issues/594>`_)
+* Contributors: Yadu
+
+0.31.0 (2023-04-11)
+-------------------
+* Enable document generation using rosdoc2 for ament_python pkgs (`#587 <https://github.com/ros2/geometry2/issues/587>`_)
+* Contributors: Yadu
+
+0.30.0 (2023-02-14)
+-------------------
+
+0.29.0 (2022-11-21)
+-------------------
+* Update maintainers (`#560 <https://github.com/ros2/geometry2/issues/560>`_)
+* Use pytest rather than unittest to enable repeat (`#558 <https://github.com/ros2/geometry2/issues/558>`_)
+* Contributors: Audrow Nash, Michael Carroll
+
+0.28.0 (2022-11-02)
+-------------------
+
+0.27.0 (2022-09-13)
+-------------------
+
+0.26.2 (2022-08-15)
+-------------------
+
+0.26.1 (2022-06-24)
+-------------------
+
+0.26.0 (2022-04-29)
 -------------------
 
 0.25.0 (2022-04-05)
