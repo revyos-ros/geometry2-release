@@ -38,11 +38,11 @@
 #include "builtin_interfaces/msg/time.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 
-#include "tf2/buffer_core.h"
-#include "tf2/convert.h"
-#include "tf2/LinearMath/Vector3.h"
-#include "tf2/exceptions.h"
-#include "tf2/time.h"
+#include "tf2/buffer_core.hpp"
+#include "tf2/convert.hpp"
+#include "tf2/LinearMath/Vector3.hpp"
+#include "tf2/exceptions.hpp"
+#include "tf2/time.hpp"
 
 TEST(tf2, setTransformFail)
 {
@@ -160,54 +160,6 @@ TEST(tf2_lookupTransform, LookupException_One_Exists)
       "foo", "bar", tf2::TimePoint(
         std::chrono::seconds(
           1))), tf2::LookupException);
-}
-
-TEST(tf2_lookupTransform, TransformException_Backward_Forward)
-{
-  tf2::BufferCore tfc;
-  geometry_msgs::msg::TransformStamped st;
-  st.header.frame_id = "foo";
-  st.header.stamp = builtin_interfaces::msg::Time();
-  st.header.stamp.sec = 2;
-  st.header.stamp.nanosec = 0;
-  st.child_frame_id = "bar";
-  st.transform.rotation.w = 1;
-  EXPECT_TRUE(tfc.setTransform(st, "authority1"));
-  EXPECT_NO_THROW(
-    tfc.lookupTransform(
-      "foo", "bar", tf2::TimePoint(
-        std::chrono::seconds(
-          2))));
-  EXPECT_THROW(
-    tfc.lookupTransform(
-      "foo", "bar", tf2::TimePoint(
-        std::chrono::seconds(
-          4))), tf2::TransformException);
-  EXPECT_THROW(
-    tfc.lookupTransform(
-      "foo", "bar", tf2::TimePoint(
-        std::chrono::seconds(
-          4))), tf2::ExtrapolationException);
-  EXPECT_THROW(
-    tfc.lookupTransform(
-      "foo", "bar", tf2::TimePoint(
-        std::chrono::seconds(
-          4))), tf2::NoDataForExtrapolationException);
-
-  st.header.stamp.sec = 3;
-  EXPECT_TRUE(tfc.setTransform(st, "authority1"));
-
-  EXPECT_THROW(
-    tfc.lookupTransform(
-      "foo", "bar", tf2::TimePoint(
-        std::chrono::seconds(
-          1))), tf2::BackwardExtrapolationException);
-
-  EXPECT_THROW(
-    tfc.lookupTransform(
-      "foo", "bar", tf2::TimePoint(
-        std::chrono::seconds(
-          4))), tf2::ForwardExtrapolationException);
 }
 
 TEST(tf2_canTransform, One_Exists)

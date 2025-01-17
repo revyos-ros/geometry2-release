@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 project(tf2_kdl)
 
-# Default to C++17
+# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -45,7 +44,6 @@ install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   find_package(rclcpp REQUIRED)
-  find_package(tf2_msgs REQUIRED)
 
   ament_add_gtest(test_kdl test/test_tf2_kdl.cpp)
   target_link_libraries(test_kdl

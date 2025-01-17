@@ -43,12 +43,12 @@
 // https://salsa.debian.org/science-team/eigen3/-/merge_requests/1 .
 // However, it is not clear that that fix is going to make it into Ubuntu 22.04 before it
 // freezes, so disable the warning here.
-#if defined(__GNUC__) && !defined(__clang__)
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #endif
 #include <Eigen/Geometry>  // NOLINT
-#if defined(__GNUC__) && !defined(__clang__)
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif
 
@@ -61,8 +61,8 @@
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "rclcpp/clock.hpp"
 
-#include "tf2/convert.h"
-#include "tf2/transform_datatypes.h"
+#include "tf2/convert.hpp"
+#include "tf2/transform_datatypes.hpp"
 #include "tf2_eigen/tf2_eigen.hpp"
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"

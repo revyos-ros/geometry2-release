@@ -28,9 +28,9 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-import pytest
 import threading
 import time
+import unittest
 
 import rclpy
 
@@ -95,9 +95,9 @@ class MockBufferServer():
         self.action_server.destroy()
 
 
-class TestBufferClient:
+class TestBufferClient(unittest.TestCase):
     @classmethod
-    def setup_class(cls):
+    def setUpClass(cls):
         cls.context = rclpy.context.Context()
         rclpy.init(context=cls.context)
         cls.executor = SingleThreadedExecutor(context=cls.context)
@@ -111,17 +111,17 @@ class TestBufferClient:
         cls.mock_action_server = MockBufferServer(cls.node, buffer_core)
 
     @classmethod
-    def teardown_class(cls):
+    def tearDownClass(cls):
         cls.mock_action_server.destroy()
         cls.node.destroy_node()
         rclpy.shutdown(context=cls.context)
 
-    def setup_method(self, method):
+    def setUp(self):
         self.spinning = threading.Event()
         self.spin_thread = threading.Thread(target=self.spin)
         self.spin_thread.start()
 
-    def teardown_method(self, method):
+    def tearDown(self):
         self.spinning.set()
         self.spin_thread.join()
 
@@ -136,18 +136,22 @@ class TestBufferClient:
         result = buffer_client.lookup_transform(
             'foo', 'bar', rclpy.time.Time(), rclpy.duration.Duration(seconds=5.0))
 
-        tf = build_transform('foo', 'bar', rclpy.time.Time().to_msg())
-        assert tf == result
+        self.assertEqual(build_transform(
+            'foo', 'bar', rclpy.time.Time().to_msg()), result)
+
         buffer_client.destroy()
 
     def test_lookup_transform_fail(self):
         buffer_client = BufferClient(
             self.node, 'lookup_transform', check_frequency=10.0, timeout_padding=rclpy.duration.Duration(seconds=0.0))
 
-        with pytest.raises(LookupException) as excinfo:
-            buffer_client.lookup_transform(
+        with self.assertRaises(LookupException) as ex:
+            result = buffer_client.lookup_transform(
                 'bar', 'baz', rclpy.time.Time(), rclpy.duration.Duration(seconds=5.0))
 
-        assert LookupException == excinfo.type
+        self.assertEqual(LookupException, type(ex.exception))
 
         buffer_client.destroy()
+
+if __name__ == '__main__':
+    unittest.main()

@@ -50,8 +50,8 @@
 #include "message_filters/connection.h"
 #include "message_filters/message_traits.h"
 #include "message_filters/simple_filter.h"
-#include "tf2/buffer_core_interface.h"
-#include "tf2/time.h"
+#include "tf2/buffer_core_interface.hpp"
+#include "tf2/time.hpp"
 #include "tf2_ros/async_buffer_interface.h"
 #include "tf2_ros/buffer.h"
 
@@ -167,8 +167,7 @@ public:
     const rclcpp::Node::SharedPtr & node,
     std::chrono::duration<TimeRepT, TimeT> buffer_timeout =
     std::chrono::duration<TimeRepT, TimeT>::max())
-  : MessageFilter(
-      buffer, target_frame, queue_size, node->get_node_logging_interface(),
+  : MessageFilter(buffer, target_frame, queue_size, node->get_node_logging_interface(),
       node->get_node_clock_interface(), buffer_timeout)
   {
     static_assert(
@@ -222,8 +221,7 @@ public:
     const rclcpp::Node::SharedPtr & node,
     std::chrono::duration<TimeRepT, TimeT> buffer_timeout =
     std::chrono::duration<TimeRepT, TimeT>::max())
-  : MessageFilter(
-      f, buffer, target_frame, queue_size, node->get_node_logging_interface(),
+  : MessageFilter(f, buffer, target_frame, queue_size, node->get_node_logging_interface(),
       node->get_node_clock_interface(), buffer_timeout)
   {
   }
@@ -458,7 +456,7 @@ public:
    */
   void add(const MConstPtr & message)
   {
-    auto t = node_clock_->get_clock()->now();
+    builtin_interfaces::msg::Time t = node_clock_->get_clock()->now();
     add(MEvent(message, t));
   }
 

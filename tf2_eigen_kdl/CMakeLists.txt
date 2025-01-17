@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 project(tf2_eigen_kdl)
 
-# Default to C++17
+# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -46,7 +45,7 @@ install(TARGETS ${PROJECT_NAME}
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin)
+  RUNTIME DESTINATION lib)
 
 ament_export_dependencies(
   Eigen3
@@ -69,7 +68,8 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
 
   ament_add_gtest(tf2_eigen_kdl_test test/tf2_eigen_kdl_test.cpp)
-  target_link_libraries(tf2_eigen_kdl_test ${PROJECT_NAME} tf2::tf2)
+  target_link_libraries(tf2_eigen_kdl_test ${PROJECT_NAME})
+  ament_target_dependencies(tf2_eigen_kdl_test tf2)
 endif()
 
 ament_package()

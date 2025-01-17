@@ -43,19 +43,19 @@
 // https://salsa.debian.org/science-team/eigen3/-/merge_requests/1 .
 // However, it is not clear that that fix is going to make it into Ubuntu 22.04 before it
 // freezes, so disable the warning here.
-#if defined(__GNUC__) && !defined(__clang__)
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #endif
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#if defined(__GNUC__) && !defined(__clang__)
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif
 
 #include "kdl/frames.hpp"
 
-#include "tf2/impl/convert.h"
+#include "tf2/impl/convert.hpp"
 
 #include "tf2_eigen_kdl/visibility_control.h"
 

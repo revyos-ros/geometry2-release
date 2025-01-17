@@ -38,8 +38,8 @@
 #include <geometry_msgs/msg/point_stamped.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
-#include <tf2/convert.h>
-#include <tf2/LinearMath/Quaternion.h>
+#include <tf2/convert.hpp>
+#include <tf2/LinearMath/Quaternion.hpp>
 #include <tf2_kdl/tf2_kdl.hpp>
 #include <tf2_bullet/tf2_bullet.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
@@ -106,18 +106,15 @@ TEST(tf2Convert, kdlBulletROSConversions)
 
 TEST(tf2Convert, ConvertTf2Quaternion)
 {
-  double epsilon = 1e-9;
-
-  tf2::Quaternion tq(1, 2, 3, 4);
-  tq.normalize();
+  const tf2::Quaternion tq(1, 2, 3, 4);
   Eigen::Quaterniond eq;
   // TODO(gleichdick): switch to tf2::convert() when it's working
   tf2::fromMsg(tf2::toMsg(tq), eq);
 
-  EXPECT_NEAR(tq.w(), eq.w(), epsilon);
-  EXPECT_NEAR(tq.x(), eq.x(), epsilon);
-  EXPECT_NEAR(tq.y(), eq.y(), epsilon);
-  EXPECT_NEAR(tq.z(), eq.z(), epsilon);
+  EXPECT_EQ(tq.w(), eq.w());
+  EXPECT_EQ(tq.x(), eq.x());
+  EXPECT_EQ(tq.y(), eq.y());
+  EXPECT_EQ(tq.z(), eq.z());
 }
 
 TEST(tf2Convert, PointVectorDefaultMessagetype)
