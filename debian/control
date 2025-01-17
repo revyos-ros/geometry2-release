@@ -1,0 +1,13 @@
+Source: ros-jazzy-tf2
+Section: misc
+Priority: optional
+Maintainer: Alejandro Hernandez Cordero <alejandro@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-ament-cmake-copyright <!nocheck>, ros-jazzy-ament-cmake-cppcheck <!nocheck>, ros-jazzy-ament-cmake-cpplint <!nocheck>, ros-jazzy-ament-cmake-google-benchmark <!nocheck>, ros-jazzy-ament-cmake-gtest <!nocheck>, ros-jazzy-ament-cmake-lint-cmake <!nocheck>, ros-jazzy-ament-cmake-ros, ros-jazzy-ament-cmake-uncrustify <!nocheck>, ros-jazzy-ament-cmake-xmllint <!nocheck>, ros-jazzy-builtin-interfaces, ros-jazzy-geometry-msgs, ros-jazzy-rcutils, ros-jazzy-rosidl-runtime-cpp, ros-jazzy-ros-workspace
+Homepage: http://www.ros.org/wiki/tf2
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-tf2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-builtin-interfaces, ros-jazzy-geometry-msgs, ros-jazzy-rcutils, ros-jazzy-rosidl-runtime-cpp, ros-jazzy-ros-workspace
+Description: tf2 is the second generation of the transform library, which lets the user keep track of multiple coordinate frames over time.
+ tf2 maintains the relationship between coordinate frames in a tree structure buffered in time, and lets the user transform points, vectors, etc between any two coordinate frames at any desired point in time.
