@@ -1,0 +1,12 @@
+Source: ros-jazzy-geometry2
+Section: misc
+Priority: optional
+Maintainer: Alejandro Hernandez Cordero <alejandro@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-ros-workspace
+Homepage: http://www.ros.org/wiki/geometry2
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-geometry2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-tf2, ros-jazzy-tf2-bullet, ros-jazzy-tf2-eigen, ros-jazzy-tf2-eigen-kdl, ros-jazzy-tf2-geometry-msgs, ros-jazzy-tf2-kdl, ros-jazzy-tf2-msgs, ros-jazzy-tf2-py, ros-jazzy-tf2-ros, ros-jazzy-tf2-sensor-msgs, ros-jazzy-tf2-tools, ros-jazzy-ros-workspace
+Description: A metapackage to bring in the default packages second generation Transform Library in ros, tf2.
