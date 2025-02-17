@@ -19,3 +19,4 @@ subject to the following restrictions:
 #include <tf2/LinearMath/MinMax.hpp>
 
 #endif  // TF2__LINEARMATH__MINMAX_H_
+

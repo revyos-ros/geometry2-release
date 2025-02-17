@@ -69,12 +69,8 @@ namespace cache
 {
 // hoisting these into separate functions causes an ~8% speedup.
 // Removing calling them altogether adds another ~10%
-void createExtrapolationException1(
-  TimePoint t0, TimePoint t1, std::string * error_str, TF2Error * error_code)
+void createExtrapolationException1(TimePoint t0, TimePoint t1, std::string * error_str)
 {
-  if (error_code) {
-    *error_code = TF2Error::TF2_NO_DATA_FOR_EXTRAPOLATION_ERROR;
-  }
   if (error_str) {
     std::stringstream ss;
     ss << "Lookup would require extrapolation at time " << displayTimePoint(t0) <<
@@ -83,12 +79,8 @@ void createExtrapolationException1(
   }
 }
 
-void createExtrapolationException2(
-  TimePoint t0, TimePoint t1, std::string * error_str, TF2Error * error_code)
+void createExtrapolationException2(TimePoint t0, TimePoint t1, std::string * error_str)
 {
-  if (error_code) {
-    *error_code = TF2Error::TF2_FORWARD_EXTRAPOLATION_ERROR;
-  }
   if (error_str) {
     std::stringstream ss;
     ss << "Lookup would require extrapolation into the future.  Requested time " <<
@@ -97,12 +89,8 @@ void createExtrapolationException2(
   }
 }
 
-void createExtrapolationException3(
-  TimePoint t0, TimePoint t1, std::string * error_str, TF2Error * error_code)
+void createExtrapolationException3(TimePoint t0, TimePoint t1, std::string * error_str)
 {
-  if (error_code) {
-    *error_code = TF2Error::TF2_BACKWARD_EXTRAPOLATION_ERROR;
-  }
   if (error_str) {
     std::stringstream ss;
     ss << "Lookup would require extrapolation into the past.  Requested time " << displayTimePoint(
@@ -114,17 +102,10 @@ void createExtrapolationException3(
 
 uint8_t TimeCache::findClosest(
   TransformStorage * & one, TransformStorage * & two,
-  TimePoint target_time, std::string * error_str, TF2Error * error_code)
+  TimePoint target_time, std::string * error_str)
 {
-  if (error_code) {
-    *error_code = TF2Error::TF2_NO_ERROR;
-  }
-
   // No values stored
   if (storage_.empty()) {
-    if (error_code) {
-      *error_code = TF2Error::TF2_NO_DATA_FOR_EXTRAPOLATION_ERROR;
-    }
     return 0;
   }
 
@@ -141,7 +122,7 @@ uint8_t TimeCache::findClosest(
       one = &ts;
       return 1;
     } else {
-      cache::createExtrapolationException1(target_time, ts.stamp_, error_str, error_code);
+      cache::createExtrapolationException1(target_time, ts.stamp_, error_str);
       return 0;
     }
   }
@@ -157,11 +138,11 @@ uint8_t TimeCache::findClosest(
     return 1;
   } else {   // Catch cases that would require extrapolation
     if (target_time > latest_time) {
-      cache::createExtrapolationException2(target_time, latest_time, error_str, error_code);
+      cache::createExtrapolationException2(target_time, latest_time, error_str);
       return 0;
     } else {
       if (target_time < earliest_time) {
-        cache::createExtrapolationException3(target_time, earliest_time, error_str, error_code);
+        cache::createExtrapolationException3(target_time, earliest_time, error_str);
         return 0;
       }
     }
@@ -209,13 +190,13 @@ void TimeCache::interpolate(
 
 bool TimeCache::getData(
   TimePoint time, TransformStorage & data_out,
-  std::string * error_str, TF2Error * error_code)
+  std::string * error_str)
 {
   // returns false if data not available
   TransformStorage * p_temp_1;
   TransformStorage * p_temp_2;
 
-  int num_nodes = findClosest(p_temp_1, p_temp_2, time, error_str, error_code);
+  int num_nodes = findClosest(p_temp_1, p_temp_2, time, error_str);
   if (num_nodes == 0) {
     return false;
   } else if (num_nodes == 1) {
@@ -232,13 +213,12 @@ bool TimeCache::getData(
   return true;
 }
 
-CompactFrameID TimeCache::getParent(
-  TimePoint time, std::string * error_str, TF2Error * error_code)
+CompactFrameID TimeCache::getParent(TimePoint time, std::string * error_str)
 {
   TransformStorage * p_temp_1;
   TransformStorage * p_temp_2;
 
-  int num_nodes = findClosest(p_temp_1, p_temp_2, time, error_str, error_code);
+  int num_nodes = findClosest(p_temp_1, p_temp_2, time, error_str);
   if (num_nodes == 0) {
     return 0;
   }

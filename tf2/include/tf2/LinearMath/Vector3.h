@@ -19,4 +19,3 @@ subject to the following restrictions:
 #include <tf2/LinearMath/Vector3.hpp>
 
 #endif  // TF2__LINEARMATH__VECTOR3_H_
-

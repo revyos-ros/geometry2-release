@@ -42,6 +42,36 @@
 
 namespace tf2_ros
 {
+
+Buffer::Buffer(
+  rclcpp::Clock::SharedPtr clock, tf2::Duration cache_time,
+  rclcpp::Node::SharedPtr node)
+: BufferCore(cache_time), clock_(clock), node_(node), timer_interface_(nullptr)
+{
+  if (nullptr == clock_) {
+    throw std::invalid_argument("clock must be a valid instance");
+  }
+
+  auto post_jump_cb = [this](const rcl_time_jump_t & jump_info) {onTimeJump(jump_info);};
+
+  rcl_jump_threshold_t jump_threshold;
+  // Disable forward jump callbacks
+  jump_threshold.min_forward.nanoseconds = 0;
+  // Anything backwards is a jump
+  jump_threshold.min_backward.nanoseconds = -1;
+  // Callback if the clock changes too
+  jump_threshold.on_clock_change = true;
+
+  jump_handler_ = clock_->create_jump_callback(nullptr, post_jump_cb, jump_threshold);
+
+  if (node_) {
+    frames_server_ = node_->create_service<tf2_msgs::srv::FrameGraph>(
+      "tf2_frames", std::bind(
+        &Buffer::getFrames, this, std::placeholders::_1,
+        std::placeholders::_2));
+  }
+}
+
 inline
 tf2::Duration
 from_rclcpp(const rclcpp::Duration & rclcpp_duration)
@@ -111,7 +141,7 @@ Buffer::canTransform(
   const std::string & target_frame, const std::string & source_frame,
   const tf2::TimePoint & time, const tf2::Duration timeout, std::string * errstr) const
 {
-  if (timeout != tf2::durationFromSec(0.0) && !checkAndErrorDedicatedThreadPresent(errstr)) {
+  if (!checkAndErrorDedicatedThreadPresent(errstr)) {
     return false;
   }
 
@@ -141,7 +171,7 @@ Buffer::canTransform(
   const std::string & source_frame, const tf2::TimePoint & source_time,
   const std::string & fixed_frame, const tf2::Duration timeout, std::string * errstr) const
 {
-  if (timeout != tf2::durationFromSec(0.0) && !checkAndErrorDedicatedThreadPresent(errstr)) {
+  if (!checkAndErrorDedicatedThreadPresent(errstr)) {
     return false;
   }
 
@@ -311,8 +341,7 @@ bool Buffer::checkAndErrorDedicatedThreadPresent(std::string * error_str) const
 
 rclcpp::Logger Buffer::getLogger() const
 {
-  return node_logging_interface_ ? node_logging_interface_->get_logger() : rclcpp::get_logger(
-    "tf2_buffer");
+  return node_ ? node_->get_logger() : rclcpp::get_logger("tf2_buffer");
 }
 
 }  // namespace tf2_ros

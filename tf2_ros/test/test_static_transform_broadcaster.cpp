@@ -70,20 +70,7 @@ TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_rclcpp_node)
 {
   auto node = rclcpp::Node::make_shared("tf2_ros_message_filter");
 
-  // Construct static tf broadcaster from node pointer
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(node);
-  }
-  // Construct static tf broadcaster from node object
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(*node);
-  }
-  // Construct static tf broadcaster from node interfaces
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(
-      node->get_node_parameters_interface(),
-      node->get_node_topics_interface());
-  }
+  tf2_ros::StaticTransformBroadcaster tfb(node);
 }
 
 TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_with_intraprocess)
@@ -99,20 +86,7 @@ TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_custom_rclcpp_
 {
   auto node = std::make_shared<NodeWrapper>("tf2_ros_message_filter");
 
-  // Construct static tf broadcaster from node pointer
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(node);
-  }
-  // Construct static tf broadcaster from node object
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(*node);
-  }
-  // Construct static tf broadcaster from node interfaces
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(
-      node->get_node_parameters_interface(),
-      node->get_node_topics_interface());
-  }
+  tf2_ros::StaticTransformBroadcaster tfb(node);
 }
 
 TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_as_member)

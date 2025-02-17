@@ -1,4 +1,4 @@
-// Copyright 2008, Willow Garage, Inc. All rights reserved.
+// Copyright 2008 Willow Garage, Inc.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -10,7 +10,7 @@
 //      notice, this list of conditions and the following disclaimer in the
 //      documentation and/or other materials provided with the distribution.
 //
-//    * Neither the name of the Willow Garage nor the names of its
+//    * Neither the name of the Willow Garage, Inc. nor the names of its
 //      contributors may be used to endorse or promote products derived from
 //      this software without specific prior written permission.
 //
@@ -25,11 +25,12 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-/** \author Tully Foote */
 
-#ifndef TF2__TIME_CACHE_H_
-#define TF2__TIME_CACHE_H_
+#ifndef TF2_SENSOR_MSGS__TF2_SENSOR_MSGS_H_
+#define TF2_SENSOR_MSGS__TF2_SENSOR_MSGS_H_
 
-#include <tf2/time_cache.hpp>
+#warning This header is obsolete, please include tf2_sensor_msgs/tf2_sensor_msgs.hpp instead
 
-#endif  // TF2__TIME_CACHE_H_
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
+
+#endif  // TF2_SENSOR_MSGS__TF2_SENSOR_MSGS_H_

@@ -19,4 +19,3 @@ subject to the following restrictions:
 #include <tf2/LinearMath/Transform.hpp>
 
 #endif  // TF2__LINEARMATH__TRANSFORM_H_
-
