@@ -2,6 +2,20 @@
 Changelog for package tf2_kdl
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.36.11 (2025-05-14)
+--------------------
+
+0.36.10 (2025-04-24)
+--------------------
+
+0.36.9 (2025-04-02)
+-------------------
+* Fix external docs mappings  (backport `#757 <https://github.com/ros2/geometry2/issues/757>`_) (`#759 <https://github.com/ros2/geometry2/issues/759>`_)
+  (cherry picked from commit 00e182217b3d0f668adb639923b6cc4e2ddfda59)
+  Co-authored-by: Emmanuel <EmmanuelMess@users.noreply.github.com>
+  Co-authored-by: Christophe Bedard <christophe.bedard@apex.ai>
+* Contributors: mergify[bot]
+
 0.36.8 (2025-01-15)
 -------------------
 * tf2_kdl: add python_orocos_kdl_vendor dependency (`#745 <https://github.com/ros2/geometry2/issues/745>`_) (`#747 <https://github.com/ros2/geometry2/issues/747>`_)
