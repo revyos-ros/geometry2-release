@@ -2,6 +2,19 @@
 Changelog for package test_tf2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.36.11 (2025-05-14)
+--------------------
+
+0.36.10 (2025-04-24)
+--------------------
+
+0.36.9 (2025-04-02)
+-------------------
+* fix: add `rclcpp::shutdown` (`#762 <https://github.com/ros2/geometry2/issues/762>`_) (`#763 <https://github.com/ros2/geometry2/issues/763>`_)
+  (cherry picked from commit 4ec4f9684d03a903da951ab6d4d08cbc87de49ee)
+  Co-authored-by: Yuyuan Yuan <az6980522@gmail.com>
+* Contributors: mergify[bot]
+
 0.36.8 (2025-01-15)
 -------------------
 
