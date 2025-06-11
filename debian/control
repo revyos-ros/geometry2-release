@@ -1,0 +1,12 @@
+Source: ros-jazzy-tf2-kdl
+Section: misc
+Priority: optional
+Maintainer: Alejandro Hernandez Cordero <alejandro@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-ament-cmake-gtest <!nocheck>, ros-jazzy-builtin-interfaces, ros-jazzy-geometry-msgs, ros-jazzy-orocos-kdl-vendor, ros-jazzy-rclcpp <!nocheck>, ros-jazzy-tf2, ros-jazzy-tf2-ros, ros-jazzy-ros-workspace
+Homepage: http://ros.org/wiki/tf2
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-tf2-kdl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-builtin-interfaces, ros-jazzy-geometry-msgs, ros-jazzy-orocos-kdl-vendor, ros-jazzy-python-orocos-kdl-vendor, ros-jazzy-tf2, ros-jazzy-tf2-ros, ros-jazzy-tf2-ros-py, ros-jazzy-ros-workspace
+Description: KDL binding for tf2
