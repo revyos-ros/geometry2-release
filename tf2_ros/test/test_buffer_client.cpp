@@ -123,8 +123,9 @@ protected:
     executor_.add_node(mock_server_);
 
     // Start spinning in a thread
-    spin_thread_ = std::thread(
-      std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor_));
+    spin_thread_ = std::thread([this] () {
+          executor_.spin();
+    });
 
     // Wait for discovery
     ASSERT_TRUE(client_->waitForServer(std::chrono::seconds(10)));
@@ -194,5 +195,7 @@ TEST_F(TestBufferClient, can_transform_unavailable)
 int main(int argc, char ** argv)
 {
   testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  auto ret = RUN_ALL_TESTS();
+  rclcpp::shutdown();
+  return ret;
 }

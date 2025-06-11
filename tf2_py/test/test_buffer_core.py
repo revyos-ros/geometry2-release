@@ -30,7 +30,6 @@
 
 import unittest
 
-import builtin_interfaces
 from geometry_msgs.msg import TransformStamped
 import rclpy
 from rclpy.duration import Duration
@@ -268,9 +267,9 @@ class TestBufferClient(unittest.TestCase):
         for ti in range(5):
             m = TransformStamped()
             m.header.frame_id = 'PARENT'
-            m.header.stamp = builtin_interfaces.msg.Time(sec=ti)
+            m.header.stamp = rclpy.time.Time(seconds=ti)
             m.child_frame_id = 'THISFRAME'
-            m.transform.translation.x = float(ti * vel)
+            m.transform.translation.x = ti * vel
             m.transform.rotation.x = 0.0
             m.transform.rotation.y = 0.0
             m.transform.rotation.z = 0.0

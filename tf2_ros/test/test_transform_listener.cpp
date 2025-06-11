@@ -53,6 +53,24 @@ private:
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 };
 
+class CustomComposableNode : public rclcpp::Node
+{
+public:
+  explicit CustomComposableNode(const rclcpp::NodeOptions & options)
+  : rclcpp::Node("tf2_ros_test_transform_listener_composable_node", options)
+  {}
+
+  void init_tf_listener()
+  {
+    rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
+    tf2_ros::Buffer buffer(clock);
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(buffer, shared_from_this(), false);
+  }
+
+private:
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+};
+
 TEST(tf2_test_transform_listener, transform_listener_rclcpp_node)
 {
   auto node = rclcpp::Node::make_shared("tf2_ros_message_filter");
@@ -77,9 +95,20 @@ TEST(tf2_test_transform_listener, transform_listener_as_member)
   custom_node->init_tf_listener();
 }
 
+TEST(tf2_test_transform_listener, transform_listener_with_intraprocess)
+{
+  rclcpp::executors::SingleThreadedExecutor exec;
+  rclcpp::NodeOptions options;
+  options = options.use_intra_process_comms(true);
+  auto custom_node = std::make_shared<CustomComposableNode>(options);
+  custom_node->init_tf_listener();
+}
+
 int main(int argc, char ** argv)
 {
   testing::InitGoogleTest(&argc, argv);
   rclcpp::init(argc, argv);
-  return RUN_ALL_TESTS();
+  auto ret = RUN_ALL_TESTS();
+  rclcpp::shutdown();
+  return ret;
 }
