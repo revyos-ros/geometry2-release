@@ -1,0 +1,12 @@
+Source: ros-jazzy-tf2-ros-py
+Section: misc
+Priority: optional
+Maintainer: Alejandro Hernandez Cordero <alejandro@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), python3-pytest <!nocheck>, ros-jazzy-sensor-msgs <!nocheck>, ros-jazzy-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: http://www.ros.org/wiki/tf2_ros
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-tf2-ros-py
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, ros-jazzy-builtin-interfaces, ros-jazzy-geometry-msgs, ros-jazzy-rclpy, ros-jazzy-sensor-msgs, ros-jazzy-std-msgs, ros-jazzy-tf2-msgs, ros-jazzy-tf2-py, ros-jazzy-ros-workspace
+Description: This package contains the ROS Python bindings for the tf2 library
