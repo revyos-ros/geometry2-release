@@ -40,11 +40,11 @@ import tf2_ros
 from tf2_sensor_msgs import do_transform_cloud, transform_points
 
 
+# A sample python unit test
 class PointCloudConversions(unittest.TestCase):
 
     def setUp(self):
         self.points = np.array([[1, 2, 0], [10, 20, 30]], dtype=np.float32)
-
         self.point_cloud_in = create_cloud_xyz32(
             Header(frame_id='test'),
             self.points)

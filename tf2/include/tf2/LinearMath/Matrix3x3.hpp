@@ -13,7 +13,7 @@ subject to the following restrictions:
 */
 
 
-#ifndef	TF2__LINEARMATH__MATRIX3X3_HPP_
+#ifndef TF2__LINEARMATH__MATRIX3X3_HPP_
 #define TF2__LINEARMATH__MATRIX3X3_HPP_
 
 #include "Vector3.hpp"

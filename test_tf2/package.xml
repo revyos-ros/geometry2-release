@@ -1,18 +1,15 @@
 <package format="2">
   <name>test_tf2</name>
-  <version>0.36.11</version>
+  <version>0.25.13</version>
   <description>
     tf2 unit tests
   </description>
-
-  <maintainer email="alejandro@openrobotics.org">Alejandro Hernandez Cordero</maintainer>
   <maintainer email="clalancette@openrobotics.org">Chris Lalancette</maintainer>
-
+  <maintainer email="alejandro@openrobotics.org">Alejandro Hernandez Cordero</maintainer>
   <license>BSD</license>
   <url type="website">http://www.ros.org/wiki/geometry_experimental</url>
-
-  <author>Eitan Marder-Eppstein</author>
   <author email="tfoote@osrfoundation.org">Tully Foote</author>
+  <author>Eitan Marder-Eppstein</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

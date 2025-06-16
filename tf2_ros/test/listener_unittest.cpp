@@ -52,9 +52,8 @@ TEST(tf2_ros_test_listener, transform_listener)
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
   // Start spinning in a thread
-  std::thread spin_thread = std::thread([&executor] () {
-        executor.spin();
-  });
+  std::thread spin_thread = std::thread(
+    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
 
   geometry_msgs::msg::TransformStamped ts;
   ts.transform.rotation.w = 1;
@@ -73,7 +72,7 @@ TEST(tf2_ros_test_listener, transform_listener)
 
   geometry_msgs::msg::TransformStamped out_rootc = buffer.lookupTransform(
     "a", "b",
-    rclcpp::Time());
+    builtin_interfaces::msg::Time());
 
   EXPECT_EQ(1, out_rootc.transform.translation.x);
   EXPECT_EQ(2, out_rootc.transform.translation.y);
@@ -92,7 +91,5 @@ int main(int argc, char ** argv)
 {
   testing::InitGoogleTest(&argc, argv);
   rclcpp::init(argc, argv);
-  auto ret = RUN_ALL_TESTS();
-  rclcpp::shutdown();
-  return ret;
+  return RUN_ALL_TESTS();
 }

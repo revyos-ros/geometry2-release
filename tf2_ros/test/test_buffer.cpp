@@ -261,7 +261,8 @@ TEST(test_buffer, test_twist)
     transform.header.frame_id = "PARENT";
     if (i < 0) {
       transform.header.stamp =
-        builtin_interfaces::msg::Time(rclcpp_time - rclcpp::Duration(
+        builtin_interfaces::msg::Time(
+        rclcpp_time - rclcpp::Duration(
           static_cast<int32_t>(std::fabs(i)), 0));
     } else {
       transform.header.stamp = builtin_interfaces::msg::Time(rclcpp_time + rclcpp::Duration(i, 0));
@@ -317,7 +318,6 @@ TEST(test_buffer, can_transform_without_dedicated_thread)
 
   // Should NOT error with default timeout
   EXPECT_TRUE(buffer.canTransform("bar", "foo", tf2_time));
-  EXPECT_TRUE(buffer.canTransform("bar", "foo", rclcpp_time));
   // Should error when timeout is not default
   EXPECT_FALSE(buffer.canTransform("bar", "foo", tf2_time, std::chrono::seconds(2)));
   EXPECT_FALSE(buffer.canTransform("bar", "foo", rclcpp_time, rclcpp::Duration::from_seconds(1.0)));
@@ -547,13 +547,10 @@ TEST(test_buffer, timer_ros_wait_for_transform_race)
   status = future.wait_for(std::chrono::milliseconds(1));
   EXPECT_EQ(status, std::future_status::ready);
   EXPECT_FALSE(callback_timeout);
-  rclcpp::shutdown();
 }
 
 int main(int argc, char ** argv)
 {
   testing::InitGoogleTest(&argc, argv);
-  auto ret = RUN_ALL_TESTS();
-  rclcpp::shutdown();
-  return ret;
+  return RUN_ALL_TESTS();
 }

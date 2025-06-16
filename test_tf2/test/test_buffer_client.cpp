@@ -52,21 +52,15 @@ static const double EPS = 1e-3;
 TEST(tf2_ros, buffer_client)
 {
   rclcpp::Node::SharedPtr node = std::make_shared<rclcpp::Node>("tf_action_node");
-  std::unique_ptr<tf2_ros::BufferClient> client = std::make_unique<tf2_ros::BufferClient>(
-    node,
-    "tf_action");
+  std::unique_ptr<tf2_ros::BufferClient> client = std::make_unique<tf2_ros::BufferClient>(node, "tf_action");
 
   rclcpp::executors::SingleThreadedExecutor executor;
 
   executor.add_node(node);
 
-  std::cout << "FOOO" << std::endl;
-
   // Start spinning in a thread
   std::thread spin_thread = std::thread(
-    [&executor]() {
-      executor.spin();
-    });
+    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
 
   //make sure that things are set up
   ASSERT_TRUE(client->waitForServer(std::chrono::seconds(4)));
@@ -78,17 +72,19 @@ TEST(tf2_ros, buffer_client)
   p1.point.y = 0.0;
   p1.point.z = 0.0;
 
-  try {
+  try
+  {
     geometry_msgs::msg::PointStamped p2 = client->transform(p1, "b");
-    RCLCPP_INFO(
-      node->get_logger(),
-      "p1: (%.2f, %.2f, %.2f), p2: (%.2f, %.2f, %.2f)", p1.point.x,
-      p1.point.y, p1.point.z, p2.point.x, p2.point.y, p2.point.z);
+    RCLCPP_INFO(node->get_logger(),
+                "p1: (%.2f, %.2f, %.2f), p2: (%.2f, %.2f, %.2f)", p1.point.x,
+                p1.point.y, p1.point.z, p2.point.x, p2.point.y, p2.point.z);
 
     EXPECT_NEAR(p2.point.x, -5.0, EPS);
     EXPECT_NEAR(p2.point.y, -6.0, EPS);
     EXPECT_NEAR(p2.point.z, -7.0, EPS);
-  } catch (tf2::TransformException & ex) {
+  }
+  catch(tf2::TransformException& ex)
+  {
     RCLCPP_ERROR(node->get_logger(), "Failed to transform: %s", ex.what());
     ASSERT_FALSE("Should not get here");
   }
@@ -100,9 +96,7 @@ TEST(tf2_ros, buffer_client)
 TEST(tf2_ros, buffer_client_different_types)
 {
   rclcpp::Node::SharedPtr node = std::make_shared<rclcpp::Node>("tf_action_node");
-  std::unique_ptr<tf2_ros::BufferClient> client = std::make_unique<tf2_ros::BufferClient>(
-    node,
-    "tf_action");
+  std::unique_ptr<tf2_ros::BufferClient> client = std::make_unique<tf2_ros::BufferClient>(node, "tf_action");
 
   rclcpp::executors::SingleThreadedExecutor executor;
 
@@ -110,16 +104,15 @@ TEST(tf2_ros, buffer_client_different_types)
 
   // Start spinning in a thread
   std::thread spin_thread = std::thread(
-    [&executor]() {
-      executor.spin();
-    });
+    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
 
   //make sure that things are set up
   ASSERT_TRUE(client->waitForServer(std::chrono::seconds(4)));
 
   tf2::Stamped<KDL::Vector> k1(KDL::Vector(0, 0, 0), tf2::TimePoint(), "a");
 
-  try {
+  try
+  {
     tf2::Stamped<btVector3> b1;
     client->transform(k1, b1, "b");
     RCLCPP_ERROR(node->get_logger(), "Bullet: (%.4f, %.4f, %.4f)", b1[0], b1[1], b1[2]);
@@ -129,7 +122,9 @@ TEST(tf2_ros, buffer_client_different_types)
     EXPECT_NEAR(b1[2], -7.0, EPS);
     EXPECT_EQ(b1.frame_id_, "b");
     EXPECT_EQ(k1.frame_id_, "a");
-  } catch (tf2::TransformException & ex) {
+  }
+  catch(tf2::TransformException& ex)
+  {
     RCLCPP_ERROR(node->get_logger(), "Failed to transform: %s", ex.what());
     ASSERT_FALSE("Should not get here");
   }
@@ -139,14 +134,12 @@ TEST(tf2_ros, buffer_client_different_types)
 
 }
 
-int main(int argc, char ** argv)
+int main(int argc, char** argv)
 {
   // This is needed because we need to wait a little bit for the other nodes
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
   testing::InitGoogleTest(&argc, argv);
   rclcpp::init(argc, argv);
-  auto ret = RUN_ALL_TESTS();
-  rclcpp::shutdown();
-  return ret;
+  return RUN_ALL_TESTS();
 }

@@ -47,7 +47,6 @@
 #include "LinearMath/Transform.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "geometry_msgs/msg/velocity_stamped.hpp"
-#include "rcutils/logging_macros.h"
 #include "tf2/buffer_core_interface.hpp"
 #include "tf2/exceptions.hpp"
 #include "tf2/transform_storage.hpp"
@@ -98,11 +97,12 @@ public:
   static const uint32_t MAX_GRAPH_DEPTH = 1000UL;
 
   /** Constructor
+   * \param interpolating Whether to interpolate, if this is false the closest value will be returned
    * \param cache_time How long to keep a history of transforms in nanoseconds
    *
    */
   TF2_PUBLIC
-  explicit BufferCore(tf2::Duration cache_time = BUFFER_CORE_DEFAULT_CACHE_TIME);
+  explicit BufferCore(tf2::Duration cache_time_ = BUFFER_CORE_DEFAULT_CACHE_TIME);
 
   TF2_PUBLIC
   virtual ~BufferCore(void);
@@ -265,7 +265,6 @@ public:
 
   /**@brief Fill the parent of a frame.
    * @param frame_id The frame id of the frame in question
-   * @param time The timepoint of the frame in question
    * @param parent The reference to the string to fill the parent
    * Returns true unless "NO_PARENT" */
   TF2_PUBLIC
@@ -395,7 +394,7 @@ private:
     const std::string & fixed_frame, tf2::Transform & transform, TimePoint & time_out) const;
 
   /** \brief An accessor to get a frame.
-   * \param c_frame_id The frameID of the desired Reference Frame
+   * \param frame_number The frameID of the desired Reference Frame
    */
   TimeCacheInterfacePtr getFrame(CompactFrameID c_frame_id) const;
 
@@ -421,8 +420,8 @@ private:
     *   the current function and argument name being validated
     * \param frame_id name of the tf frame to validate
     * \return The CompactFrameID of the existing frame.
-    * \throws InvalidArgumentException if the frame_id string has an invalid format
-    * \throws LookupException if frame_id did not exist
+    * \raises InvalidArgumentException if the frame_id string has an invalid format
+    * \raises LookupException if frame_id did not exist
     */
   CompactFrameID validateFrameId(
     const char * function_name_arg,

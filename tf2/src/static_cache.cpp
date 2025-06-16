@@ -38,9 +38,8 @@
 
 bool tf2::StaticCache::getData(
   tf2::TimePoint time,
-  tf2::TransformStorage & data_out, std::string * error_str, TF2Error * error_code)
+  tf2::TransformStorage & data_out, std::string * error_str)
 {
-  (void)error_code;
   (void)error_str;
   data_out = storage_;
   data_out.stamp_ = time;
@@ -57,12 +56,9 @@ void tf2::StaticCache::clearList() {}
 
 unsigned tf2::StaticCache::getListLength() {return 1;}
 
-tf2::CompactFrameID tf2::StaticCache::getParent(
-  tf2::TimePoint time, std::string * error_str,
-  TF2Error * error_code)
+tf2::CompactFrameID tf2::StaticCache::getParent(tf2::TimePoint time, std::string * error_str)
 {
   (void)time;
-  (void)error_code;
   (void)error_str;
   return storage_.frame_id_;
 }
